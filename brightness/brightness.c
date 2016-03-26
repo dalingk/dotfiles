@@ -7,18 +7,29 @@
 #define MAX_BRIGHT_FILE BRIGHT_PATH "/max_brightness"
 #define FORMAT "Current brightness: %d%%\n"
 
-void change(int max, int value, int change) {
+void delta(int max, int value, int delta) {
     FILE *bf = fopen(BRIGHT_FILE, "w");
     if (bf == NULL) {
         fprintf(stderr, "Can't open \"%s\".\n", BRIGHT_FILE);
         exit(1);
     }
-    if (value + change > max) {
+    if (value + delta > max) {
         fprintf(bf, "%d", max);
-    } else if (value + change < 0) {
+    } else if (value + delta < 0) {
         fprintf(bf, "0");
     } else {
-        fprintf(bf, "%d", value + change);
+        fprintf(bf, "%d", value + delta);
+    }
+    fclose(bf);
+}
+void set(int value, int max) {
+    FILE *bf = fopen(BRIGHT_FILE, "w");
+    if (bf == NULL) {
+        fprintf(stderr, "Can't open \"%s\".\n", BRIGHT_FILE);
+        exit(1);
+    }
+    if (value > 0 && value <= max) {
+        fprintf(bf, "%d", value);
     }
     fclose(bf);
 }
@@ -31,7 +42,7 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Can't open \"%s\".\n", BRIGHT_FILE);
         return 1;
     }
-    if (bf == NULL) {
+    if (mbf == NULL) {
         fprintf(stderr, "Can't open \"%s\".\n", MAX_BRIGHT_FILE);
         return 1;
     }
@@ -41,11 +52,13 @@ int main(int argc, char *argv[]) {
     fclose(bf);
     fclose(mbf);
     
-    while ((opt = getopt(argc, argv, "idq")) != -1) {
+    while ((opt = getopt(argc, argv, "idqmM")) != -1) {
         switch (opt) {
-            case 'i': change(max, current, step); break;
-            case 'd': change(max, current, -step); break;
+            case 'i': delta(max, current, step); break;
+            case 'd': delta(max, current, -step); break;
             case 'q': query = 1; break;
+            case 'm': set(step, max); break;
+            case 'M': set(max, max); break;
             default: fprintf(stderr, "Usage %s [-idq]\n", argv[0]);
         }
     }
