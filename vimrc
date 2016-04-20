@@ -5,3 +5,4 @@ colorschem default
 set number
 set hlsearch
 filetype indent on
+set mouse=a
