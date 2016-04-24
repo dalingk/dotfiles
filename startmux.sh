@@ -1,7 +1,7 @@
 #!/bin/bash
-tmux list-sessions &> /dev/null
+session="piMux"
+tmux has-session -t $session &> /dev/null
 if [ $? != 0 ]; then
-    session="0"
     tmux start-server
     tmux new-session -d -s $session	-n "Main"
     tmux select-pane -t 1
