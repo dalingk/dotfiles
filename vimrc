@@ -6,3 +6,6 @@ set number
 set hlsearch
 filetype indent on
 set mouse=a
+syntax on
+set colorcolumn=80
+highlight ColorColumn ctermbg=4
