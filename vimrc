@@ -9,3 +9,5 @@ set mouse=a
 syntax on
 set colorcolumn=80
 highlight ColorColumn ctermbg=4
+" Write with sudo hack
+cmap w!! w !sudo tee > /dev/null %
