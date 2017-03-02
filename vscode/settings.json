@@ -1,0 +1,16 @@
+{
+    "workbench.activityBar.visible": true,
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/**.class": true
+    },
+    "workbench.welcome.enabled": false,
+    "editor.wordWrap": true,
+    "window.zoomLevel": 0,
+    "editor.renderIndentGuides": true,
+    "editor.rulers": [80]
+}
